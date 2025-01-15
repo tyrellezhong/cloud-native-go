@@ -12,11 +12,12 @@ import (
 var counter int = 0
 var ch = make(chan int, 1)
 
-func Worker() {
-	ch <- 1
-	counter++
-	<-ch
-}
+	func Worker() {
+		ch <- 1
+		counter++
+		<-ch
+	}
+
 ```
 
 - B：
@@ -24,11 +25,12 @@ func Worker() {
 var counter int = 0
 var ch = make(chan int)
 
-func Worker() {
-	<-ch
-	counter++
-	ch <- 1
-}
+	func Worker() {
+		<-ch
+		counter++
+		ch <- 1
+	}
+
 ```
 
 - C：
@@ -36,11 +38,12 @@ func Worker() {
 var counter int = 0
 var ch = make(chan int, 1)
 
-func Worker() {
-	<-ch
-	counter++
-	ch <- 1
-}
+	func Worker() {
+		<-ch
+		counter++
+		ch <- 1
+	}
+
 ```
 
 - D：
@@ -48,13 +51,13 @@ func Worker() {
 var counter int = 0
 var ch = make(chan int)
 
-func Worker() {
-	ch <- 1
-	counter++
-	<-ch
-}
-```
+	func Worker() {
+		ch <- 1
+		counter++
+		<-ch
+	}
 
+```
 */
 var counter int = 0
 var ch = make(chan int, 1)
@@ -85,7 +88,7 @@ func ChanReadNil() {
 	fmt.Println(d)
 }
 
-// 写nil管道不会阻塞
+// 写nil管道会阻塞
 func ChanWriteNil() {
 	var ch chan int
 	ch <- 1
