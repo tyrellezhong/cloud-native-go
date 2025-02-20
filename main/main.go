@@ -1,16 +1,15 @@
 package main
 
-import (
-	_chan "cloud_native_go/chan"
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	_chan.ChanCap()
-	// _chan.ChanReadNil()
-	// _chan.ChanWriteNil()
-	// _chan.ChanReadClosed()
-	_chan.ChanWriteClosed()
-	fmt.Println("excute success")
+	defer func() {
+		if err := recover(); err == nil {
+			fmt.Println("expected panic")
+		}
+	}()
+	ch := make(chan int, 10)
+	close(ch)
+	ch <- 1
 
 }
